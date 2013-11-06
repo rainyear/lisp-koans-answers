@@ -49,23 +49,9 @@
 ;
 ; Your goal is to write the score method.
 
-(defun single-roll-score (r)
-	(if (= r 1)
-		100
-		(if (= r 5)
-			50
-			0
-		)
-	)
-)
+
 (defun score (dice)
-	(cond ((= 0 (length dice)) 0)
-		((= 1 (length dice)) (single-roll-score (car dice)))
-		((= 2 (length dice)) (+ (single-roll-score (car dice)) (single-roll-score (cdr dice))))
-		((= 3 (length dice)) )
-		((= 4 (length dice)) )
-		((= 5 (length dice)) )
-	)
+	(cal-score (compress dice))
 )
 
 (define-test test-score-of-an-empty-list-is-zero
