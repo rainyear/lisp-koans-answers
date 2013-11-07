@@ -51,7 +51,21 @@
 
 
 (defun score (dice)
-	(cal-score (compress dice))
+	(apply #'+ (mapcar #'(lambda (n)
+		(let ((cnt (count n dice)))
+			(cond
+				((and (= n 1) (= cnt 3)) 1000)
+				((and (= n 1) (< cnt 3)) (* 100 cnt))
+				((and (= n 1) (> cnt 3)) (+ 1000 (* 100 (- cnt 3))))
+				((and (= n 5) (= cnt 3)) 500)
+				((and (= n 5) (< cnt 3)) (* 50 cnt))
+				((and (= n 5) (> cnt 3)) (+ 500 (* 50 (- cnt 3))))
+				((= cnt 3) (* 100 n))
+				(T 0)
+			)
+		))
+		(remove-duplicates dice)
+	))
 )
 
 (define-test test-score-of-an-empty-list-is-zero
