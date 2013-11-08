@@ -22,22 +22,26 @@
 
 ;;  YOU WRITE THIS PART:
 (defclass dice-set ()
-  () ;; WRITE DICE-SET CLASS BODY HERE
+  ((value :reader get-value :writer set-value)) ;; WRITE DICE-SET CLASS BODY HERE
 )
 
 (defmethod get-values ((object dice-set))
+  (slot-value object 'value)
   ;; WRITE GET-VALUES METHOD DEFINITION HERE
 )
 
 (defmethod roll (how-many (object dice-set))
   ;; WRITE ROLL METHOD DEFINITION HERE
+  (setf (slot-value object 'value) (make-list how-many :initial-element (random 6)))
 )
 
 
 (define-test test-create-dice-set
 ;; tests making an instance of the dice-set
     (let ((dice (make-instance 'dice-set)))
-      (assert-true dice)))
+      (assert-true dice)
+    )
+)
 
 
 (define-test test-rolling-the-dice-returns-a-set-of-integers-between-1-and-6
